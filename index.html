@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>संकट से समाधान – हनुमान के साथ</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase.js"></script>
+</head>
+<body>
+  <header>
+    <h1>संकट से समाधान – हनुमान के साथ</h1>
+    <p>श्री हनुमान जी की कृपा से हर समस्या का समाधान</p>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>अपनी समस्या हमें बताएं</h2>
+      <form id="problemForm">
+        <input type="text" id="name" placeholder="आपका नाम" required />
+        <input type="email" id="email" placeholder="आपका ईमेल" required />
+        <textarea id="message" placeholder="अपनी समस्या बताएं..." required></textarea>
+        <button type="submit">सबमिट करें</button>
+        <p id="statusMsg"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 संकटमोचन डायरीज़</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('problemForm');
+    const statusMsg = document.getElementById('statusMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      try {
+        await firebaseAdd(name, email, message);
+        statusMsg.textContent = "✅ सबमिट सफल रहा!";
+        form.reset();
+      } catch (error) {
+        statusMsg.textContent = "❌ कृपया पुनः प्रयास करें।";
+      }
+    });
+  </script>
+</body>
+</html>
